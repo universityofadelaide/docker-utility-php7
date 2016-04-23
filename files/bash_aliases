@@ -1,0 +1,8 @@
+# Include project specific aliases
+if [ -f /vagrant/aliases.sh ]; then
+    . /vagrant/aliases.sh
+fi
+
+# set Powerline shell mode
+alias shell-pretty="sed -i 's/POWERLINE_MODE=flat/POWERLINE_MODE=patched/' ~/.profile; source ~/.profile"
+alias shell-flat="sed -i 's/POWERLINE_MODE=patched/POWERLINE_MODE=flat/' ~/.profile; source ~/.profile"
