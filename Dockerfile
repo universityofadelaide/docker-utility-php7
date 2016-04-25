@@ -28,7 +28,7 @@ RUN apt-get -y --force-yes install docker-engine
 # Configure timezone
 RUN echo "Australia/Adelaide" > /etc/timezone; dpkg-reconfigure tzdata
 
-RUN apt-get -y install php7.0 php7.0-cli php7.0-common php7.0-gd php7.0-curl php7.0-opcache php7.0-mysql php7.0-ldap php-xdebug php7.0-xml php7.0-mbstring libedit-dev tig vim wget curl ssh git-flow silversearcher-ag mysql-client netcat-openbsd pv ruby rubygems-integration nodejs nodejs-legacy sudo zip
+RUN apt-get -y install php7.0 php7.0-cli php7.0-common php7.0-gd php7.0-curl php7.0-opcache php7.0-mysql php7.0-ldap php-xdebug php7.0-xml php7.0-mbstring php7.0-bcmath libedit-dev tig vim wget curl ssh git-flow silversearcher-ag mysql-client netcat-openbsd pv ruby rubygems-integration nodejs nodejs-legacy sudo zip
 
 # Install robo
 RUN wget -O /usr/local/bin/robo http://robo.li/robo.phar && chmod +x /usr/local/bin/robo
