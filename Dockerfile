@@ -34,7 +34,8 @@ RUN wget -O /usr/local/bin/robo http://wcms-files.adelaide.edu.au/robo.phar && c
 RUN wget -O /root/.powerline-shell.py https://raw.githubusercontent.com/universityofadelaide/ua-powerline-shell/master/powerline-shell.py && chmod 755 /root/.powerline-shell.py
 
 # Add smtp support
-RUN echo "mailhub=mail:25\nUseTLS=NO\nFromLineOverride=YES" > /etc/ssmtp/ssmtp.conf \
+RUN echo "Australia/Adelaide" > /etc/timezone && dpkg-reconfigure tzdata \
+&& echo "mailhub=mail:25\nUseTLS=NO\nFromLineOverride=YES" > /etc/ssmtp/ssmtp.conf \
 && echo "sendmail_path = /usr/sbin/ssmtp -t" > /etc/php/7.0/mods-available/sendmail.ini \
 && echo "date.timezone=\"Australia/Adelaide\"" > /etc/php/7.0/cli/conf.d/30-custom.ini \
 && phpenmod -v ALL -s ALL sendmail
