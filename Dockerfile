@@ -25,7 +25,7 @@ RUN apt-get update \
 && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
 # Install robo
-RUN wget -O /usr/local/bin/robo http://wcms-files.adelaide.edu.au/robo.phar && chmod +x /usr/local/bin/robo \
+RUN wget -O /usr/local/bin/robo https://github.com/deviantintegral/Robo/releases/download/1.0.0-beta1/robo.phar && chmod +x /usr/local/bin/robo \
 && wget -q https://getcomposer.org/installer -O - | php -- --install-dir=/usr/local/bin --filename=composer \
 && wget https://drupalconsole.com/installer -O /usr/local/bin/drupal && chmod +x /usr/local/bin/drupal && /usr/local/bin/drupal init \
 && ln -s /code/vendor/drush/drush/drush /usr/local/bin/drush
