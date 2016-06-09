@@ -30,9 +30,6 @@ RUN wget -O /usr/local/bin/robo https://github.com/deviantintegral/Robo/releases
 && wget https://drupalconsole.com/installer -O /usr/local/bin/drupal && chmod +x /usr/local/bin/drupal && /usr/local/bin/drupal init \
 && ln -s /code/vendor/drush/drush/drush /usr/local/bin/drush
 
-# Install powerline-shell.
-RUN wget -O /root/.powerline-shell.py https://raw.githubusercontent.com/universityofadelaide/ua-powerline-shell/master/powerline-shell.py && chmod 755 /root/.powerline-shell.py
-
 # Add smtp support
 RUN echo "Australia/Adelaide" > /etc/timezone && dpkg-reconfigure tzdata \
 && echo "mailhub=mail:25\nUseTLS=NO\nFromLineOverride=YES" > /etc/ssmtp/ssmtp.conf \
