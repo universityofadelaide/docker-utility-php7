@@ -19,7 +19,7 @@ RUN apt-get update \
 && apt-get update \
 && apt-get -y dist-upgrade \
 && apt-get -y --force-yes install docker-engine \
-&& apt-get -y install php7.0 php7.0-cli php7.0-common php7.0-gd php7.0-curl php7.0-opcache php7.0-mysql php7.0-ldap php-xdebug php-memcached php7.0-xml php7.0-mbstring php7.0-bcmath libedit-dev tig vim wget curl ssh git-flow silversearcher-ag mysql-client netcat-openbsd pv ruby rubygems-integration nodejs nodejs-legacy sudo zip ssmtp \
+&& apt-get -y install php7.0 php7.0-cli php7.0-common php7.0-gd php7.0-curl php7.0-opcache php7.0-mysql php7.0-ldap php-xdebug php-memcached php7.0-xml php7.0-mbstring php7.0-bcmath libedit-dev tig vim wget curl ssh git-flow silversearcher-ag mysql-client netcat-openbsd pv ruby rubygems-integration nodejs nodejs-legacy sudo zip ssmtp python \
 && apt-get -y autoremove \
 && apt-get autoclean \
 && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
@@ -29,9 +29,6 @@ RUN wget -O /usr/local/bin/robo http://robo.li/robo.phar && chmod +x /usr/local/
 && wget -q https://getcomposer.org/installer -O - | php -- --install-dir=/usr/local/bin --filename=composer \
 && wget https://drupalconsole.com/installer -O /usr/local/bin/drupal && chmod +x /usr/local/bin/drupal && /usr/local/bin/drupal init \
 && ln -s /code/vendor/drush/drush/drush /usr/local/bin/drush
-
-# Install powerline-shell.
-RUN wget -O /root/.powerline-shell.py https://raw.githubusercontent.com/universityofadelaide/ua-powerline-shell/master/powerline-shell.py && chmod 755 /root/.powerline-shell.py
 
 # Add smtp support
 RUN echo "Australia/Adelaide" > /etc/timezone && dpkg-reconfigure tzdata \
