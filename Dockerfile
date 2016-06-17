@@ -2,6 +2,10 @@ FROM ubuntu:16.04
 
 ENV DEBIAN_FRONTEND noninteractive
 
+# Configured timezone.
+ENV TZ=Australia/Adelaide
+RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
+
 # Ensure UTF-8
 RUN locale-gen en_AU.UTF-8
 ENV LANG       en_AU.UTF-8
@@ -31,10 +35,8 @@ RUN wget -O /usr/local/bin/robo http://robo.li/robo.phar && chmod +x /usr/local/
 && ln -s /code/vendor/drush/drush/drush /usr/local/bin/drush
 
 # Add smtp support
-RUN echo "Australia/Adelaide" > /etc/timezone && dpkg-reconfigure tzdata \
-&& echo "mailhub=mail:25\nUseTLS=NO\nFromLineOverride=YES" > /etc/ssmtp/ssmtp.conf \
-&& echo "sendmail_path = /usr/sbin/ssmtp -t" > /etc/php/7.0/mods-available/sendmail.ini \
-&& echo "date.timezone=\"Australia/Adelaide\"" > /etc/php/7.0/cli/conf.d/30-custom.ini \
+RUN echo "sendmail_path = /usr/sbin/ssmtp -t" > /etc/php/7.0/mods-available/sendmail.ini \
+&& echo "mailhub=mail:25\nUseTLS=NO\nFromLineOverride=YES" > /etc/ssmtp/ssmtp.conf
 && phpenmod -v ALL -s ALL sendmail
 
 # enable sshd
