@@ -46,6 +46,7 @@ RUN mkdir -p /var/run/sshd && chmod -775 /var/run/sshd
 COPY ./files/bash_aliases /root/.bash_aliases
 COPY ./files/gitconfig /root/.gitconfig
 COPY ./files/profile /root/.profile
+COPY ./files/entry.sh /entry.sh
 
 # Ports
 EXPOSE 22
