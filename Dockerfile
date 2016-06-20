@@ -36,7 +36,7 @@ RUN wget -O /usr/local/bin/robo http://robo.li/robo.phar && chmod +x /usr/local/
 
 # Add smtp support
 RUN echo "sendmail_path = /usr/sbin/ssmtp -t" > /etc/php/7.0/mods-available/sendmail.ini \
-&& echo "mailhub=mail:25\nUseTLS=NO\nFromLineOverride=YES" > /etc/ssmtp/ssmtp.conf
+&& echo "mailhub=mail:25\nUseTLS=NO\nFromLineOverride=YES" > /etc/ssmtp/ssmtp.conf \
 && phpenmod -v ALL -s ALL sendmail
 
 # enable sshd
