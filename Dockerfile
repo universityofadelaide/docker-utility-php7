@@ -12,7 +12,7 @@ ENV LANG       en_AU.UTF-8
 ENV LC_ALL     en_AU.UTF-8
 
 # Use nearby apt mirror.
-RUN sed -i 's%http://archive.ubuntu.com/ubuntu/%mirror://mirrors.ubuntu.com/mirrors.txt%' /etc/apt/sources.list
+#RUN sed -i 's%http://archive.ubuntu.com/ubuntu/%mirror://mirrors.ubuntu.com/mirrors.txt%' /etc/apt/sources.list
 
 # Install the universe.
 RUN apt-get update \
@@ -22,16 +22,26 @@ RUN apt-get update \
 && apt-get update \
 && apt-get -y dist-upgrade \
 && apt-get -y --force-yes install docker-engine \
-&& apt-get -y install php7.0 php7.0-cli php7.0-common php7.0-gd php7.0-curl php7.0-opcache php7.0-mysql php7.0-ldap php-xdebug php-memcached php7.0-xml php7.0-mbstring php7.0-bcmath libedit-dev tig vim wget curl ssh git-flow silversearcher-ag mysql-client netcat-openbsd pv ruby rubygems-integration nodejs nodejs-legacy sudo zip ssmtp python \
+&& apt-get -y install php7.0 php7.0-cli php7.0-common php7.0-gd php7.0-curl php7.0-opcache php7.0-mysql php7.0-ldap php-xdebug php-memcached php7.0-xml php7.0-mbstring php7.0-bcmath libedit-dev tig vim wget curl ssh git-flow silversearcher-ag mysql-client netcat-openbsd pv ruby-dev rubygems-integration nodejs nodejs-legacy build-essential sudo zip ssmtp python \
 && apt-get -y autoremove \
 && apt-get autoclean \
 && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# Install robo
-RUN wget -O /usr/local/bin/robo http://robo.li/robo.phar && chmod +x /usr/local/bin/robo \
-&& wget -q https://getcomposer.org/installer -O - | php -- --install-dir=/usr/local/bin --filename=composer \
+# Install bundler.
+RUN gem install bundler
+
+# Install Robo
+#RUN wget -O /usr/local/bin/robo http://robo.li/robo.phar && chmod +x /usr/local/bin/robo \
+
+# Install Composer, Drupal Console and Drush.
+RUN wget -q https://getcomposer.org/installer -O - | php -- --install-dir=/usr/local/bin --filename=composer \
 && wget https://drupalconsole.com/installer -O /usr/local/bin/drupal && chmod +x /usr/local/bin/drupal && /usr/local/bin/drupal init \
 && ln -s /code/vendor/drush/drush/drush /usr/local/bin/drush
+
+# Build Robo from Git
+RUN git clone https://github.com/consolidation-org/Robo.git /tmp/robo && cd /tmp/robo && composer --no-dev install \
+&& echo "phar.readonly = Off" > /etc/php/7.0/cli/conf.d/99-phar_build.ini \
+&& ./robo phar:build && mv robo.phar /usr/local/bin/robo && chmod +x /usr/local/bin/robo
 
 # Add smtp support
 RUN echo "sendmail_path = /usr/sbin/ssmtp -t" > /etc/php/7.0/mods-available/sendmail.ini \
