@@ -8,4 +8,4 @@ See https://github.com/universityofadelaide/docker_drupal8 for a Drupal8
 
 To build manually.
 
-docker build -t uofa/docker_drupal_utility .
+docker build -t uofa/utility-php7 .
