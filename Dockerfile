@@ -18,10 +18,10 @@ ENV LC_ALL     en_AU.UTF-8
 RUN apt-get update \
 && apt-get -y install apt-transport-https ca-certificates \
 && apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D \
-&& echo "deb https://apt.dockerproject.org/repo ubuntu-wily main" > /etc/apt/sources.list.d/docker.list \
+&& echo "deb https://apt.dockerproject.org/repo ubuntu-xenial main" > /etc/apt/sources.list.d/docker.list \
 && apt-get update \
 && apt-get -y dist-upgrade \
-&& apt-get -y --force-yes install docker-engine \
+&& apt-get -y install docker-engine=1.11.2-0~xenial \
 && apt-get -y install php7.0 php7.0-cli php7.0-common php7.0-gd php7.0-curl php7.0-opcache php7.0-mysql php7.0-ldap php-xdebug php-memcached php7.0-xml php7.0-mbstring php7.0-bcmath libedit-dev tig vim wget curl ssh git-flow silversearcher-ag mysql-client netcat-openbsd pv ruby-dev rubygems-integration nodejs nodejs-legacy npm build-essential sudo zip ssmtp python \
 && apt-get -y autoremove \
 && apt-get autoclean \
