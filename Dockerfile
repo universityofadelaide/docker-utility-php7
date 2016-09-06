@@ -39,7 +39,7 @@ RUN wget -q https://getcomposer.org/installer -O - | php -- --install-dir=/usr/l
 && ln -s /code/vendor/drush/drush/drush /usr/local/bin/drush
 
 # Build Robo from Git
-RUN git clone https://github.com/consolidation-org/Robo.git /tmp/robo && cd /tmp/robo && composer --no-dev install \
+RUN git clone --branch 1.0.0-RC1 --depth 1 https://github.com/consolidation-org/Robo.git /tmp/robo && cd /tmp/robo && composer --no-dev install \
 && echo "phar.readonly = Off" > /etc/php/7.0/cli/conf.d/99-phar_build.ini \
 && ./robo phar:build && mv robo.phar /usr/local/bin/robo && chmod +x /usr/local/bin/robo
 
