@@ -27,5 +27,5 @@ fi
 # Node tools we can use globally.
 # PATH="/code/node_modules/.bin:$PATH"
 
-# Change to our standard mounted directory.
-cd /code
+# Change to the web folder where the code will be mounted.
+cd /web
