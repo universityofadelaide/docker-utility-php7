@@ -6,7 +6,7 @@ ENV DEBIAN_FRONTEND noninteractive
 ENV TZ=Australia/Adelaide
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
-# Ensure UTF-8
+# Ensure UTF-8.
 RUN locale-gen en_AU.UTF-8
 ENV LANG       en_AU.UTF-8
 ENV LC_ALL     en_AU.UTF-8
@@ -30,7 +30,7 @@ RUN apt-get update \
 # Install bundler.
 RUN gem install bundler
 
-# Install Robo
+# Install Robo.
 #RUN wget -O /usr/local/bin/robo http://robo.li/robo.phar && chmod +x /usr/local/bin/robo \
 
 # Install Composer, Drupal Console and Drush.
@@ -38,17 +38,17 @@ RUN wget -q https://getcomposer.org/installer -O - | php -- --install-dir=/usr/l
 && wget https://drupalconsole.com/installer -O /usr/local/bin/drupal && chmod +x /usr/local/bin/drupal && /usr/local/bin/drupal init \
 && ln -s /code/vendor/drush/drush/drush /usr/local/bin/drush
 
-# Build Robo from Git
+# Build Robo from Git.
 RUN git clone https://github.com/consolidation-org/Robo.git /tmp/robo && cd /tmp/robo && composer --no-dev install \
 && echo "phar.readonly = Off" > /etc/php/7.0/cli/conf.d/99-phar_build.ini \
 && ./robo phar:build && mv robo.phar /usr/local/bin/robo && chmod +x /usr/local/bin/robo
 
-# Add smtp support
+# Add smtp support.
 RUN echo "sendmail_path = /usr/sbin/ssmtp -t" > /etc/php/7.0/mods-available/sendmail.ini \
 && echo "mailhub=mail:25\nUseTLS=NO\nFromLineOverride=YES" > /etc/ssmtp/ssmtp.conf \
 && phpenmod -v ALL -s ALL sendmail
 
-# enable sshd
+# Enable sshd.
 RUN mkdir -p /var/run/sshd && chmod -775 /var/run/sshd
 
 COPY ./files/bash_aliases /root/.bash_aliases
@@ -56,14 +56,14 @@ COPY ./files/gitconfig /root/.gitconfig
 COPY ./files/profile /root/.profile
 COPY ./files/entry.sh /entry.sh
 
-# now setup ready for the user
+# Setup a diurectory ready for the user which is dynamically created.
 RUN mkdir -p /code
 
 COPY ./files/bash_aliases /code/.bash_aliases
 COPY ./files/gitconfig /code/.gitconfig
 COPY ./files/profile /code/.profile
 
-# Ports
+# Expose ports.
 EXPOSE 22
 
 WORKDIR /code
