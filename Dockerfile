@@ -56,6 +56,13 @@ COPY ./files/gitconfig /root/.gitconfig
 COPY ./files/profile /root/.profile
 COPY ./files/entry.sh /entry.sh
 
+# now setup ready for the user
+RUN mkdir -p /code
+
+COPY ./files/bash_aliases /code/.bash_aliases
+COPY ./files/gitconfig /code/.gitconfig
+COPY ./files/profile /code/.profile
+
 # Ports
 EXPOSE 22
 
