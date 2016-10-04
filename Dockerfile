@@ -36,7 +36,7 @@ RUN gem install bundler
 # Install Composer, Drupal Console and Drush.
 RUN wget -q https://getcomposer.org/installer -O - | php -- --install-dir=/usr/local/bin --filename=composer \
 && wget https://drupalconsole.com/installer -O /usr/local/bin/drupal && chmod +x /usr/local/bin/drupal && /usr/local/bin/drupal init \
-&& ln -s /code/vendor/drush/drush/drush /usr/local/bin/drush
+&& ln -s /web/vendor/drush/drush/drush /usr/local/bin/drush
 
 # Build Robo from Git
 RUN git clone --branch 1.0.0-RC1 --depth 1 https://github.com/consolidation-org/Robo.git /tmp/robo && cd /tmp/robo && composer --no-dev install \
