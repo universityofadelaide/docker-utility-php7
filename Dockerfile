@@ -35,7 +35,8 @@ RUN gem install bundler
 
 # Install Composer, Drupal Console and Drush.
 RUN wget -q https://getcomposer.org/installer -O - | php -- --install-dir=/usr/local/bin --filename=composer \
-&& wget https://drupalconsole.com/installer -O /usr/local/bin/drupal && chmod +x /usr/local/bin/drupal && /usr/local/bin/drupal init \
+&& wget https://drupalconsole.com/installer -O /usr/local/bin/drupal \
+&& chmod +x /usr/local/bin/drupal \
 && ln -s /web/vendor/drush/drush/drush /usr/local/bin/drush
 
 # Build Robo from Git
@@ -54,6 +55,7 @@ RUN mkdir -p /var/run/sshd && chmod -775 /var/run/sshd
 COPY ./files/bash_aliases /root/.bash_aliases
 COPY ./files/gitconfig /root/.gitconfig
 COPY ./files/profile /root/.profile
+COPY ./files/xdebug_setup.sh /usr/local/bin/xdebug_setup.sh
 COPY ./files/entry.sh /entry.sh
 
 # Setup a diurectory ready for the user which is dynamically created.
