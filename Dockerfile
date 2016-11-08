@@ -27,22 +27,20 @@ RUN apt-get update \
 && apt-get autoclean \
 && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
 
-# Install bundler.
+# Install Bundler.
 RUN gem install bundler
 
 # Install Robo.
-#RUN wget -O /usr/local/bin/robo http://robo.li/robo.phar && chmod +x /usr/local/bin/robo \
+RUN wget -O /usr/local/bin/robo https://github.com/consolidation/Robo/releases/download/1.0.0-RC3/robo.phar && chmod +x /usr/local/bin/robo
 
-# Install Composer, Drupal Console and Drush.
-RUN wget -q https://getcomposer.org/installer -O - | php -- --install-dir=/usr/local/bin --filename=composer \
-&& wget https://drupalconsole.com/installer -O /usr/local/bin/drupal \
-&& chmod +x /usr/local/bin/drupal \
-&& ln -s /web/vendor/drush/drush/drush /usr/local/bin/drush
+# Install Drush.
+RUN wget -O /usr/local/bin/drush https://s3.amazonaws.com/files.drush.org/drush.phar && chmod +x /usr/local/bin/drush
 
-# Build Robo from Git
-RUN git clone --branch 1.0.0-RC1 --depth 1 https://github.com/consolidation-org/Robo.git /tmp/robo && cd /tmp/robo && composer --no-dev install \
-&& echo "phar.readonly = Off" > /etc/php/7.0/cli/conf.d/99-phar_build.ini \
-&& ./robo phar:build && mv robo.phar /usr/local/bin/robo && chmod +x /usr/local/bin/robo
+# Install Drupal console.
+RUN wget -O /usr/local/bin/drupal https://drupalconsole.com/installer && chmod +x /usr/local/bin/drupal && /usr/local/bin/drupal init
+
+# Install Composer.
+RUN wget -q https://getcomposer.org/installer -O - | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Add smtp support.
 RUN echo "sendmail_path = /usr/sbin/ssmtp -t" > /etc/php/7.0/mods-available/sendmail.ini \
@@ -58,7 +56,7 @@ COPY ./files/profile /root/.profile
 COPY ./files/xdebug_setup.sh /usr/local/bin/xdebug_setup.sh
 COPY ./files/entry.sh /entry.sh
 
-# Setup a diurectory ready for the user which is dynamically created.
+# Setup a directory ready for the user which is dynamically created.
 RUN mkdir -p /code
 
 COPY ./files/bash_aliases /code/.bash_aliases
