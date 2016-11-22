@@ -5,7 +5,15 @@ if [ "${USER}" != "root" ]; then
     adduser --disabled-password --uid ${UID} --gecos ${USER} --home /code ${USER}
     echo "${USER} ALL=(ALL) NOPASSWD: ALL" > /etc/sudoers.d/${USER}
     echo "Defaults env_keep += \"SSH_AUTH_SOCK\"" >> /etc/sudoers.d/${USER}
-    sudo -E -i -u ${USER} -- sh -c "${*}"
+    if [ ${#} -eq 0 ]; then
+        sudo -E -i -u ${USER}
+    else
+        sudo -E -i -u ${USER} -- sh -c "${*}"
+    fi
 else
-    sudo -E -i -- sh -c "${*}"
+    if [ ${#} -eq 0 ]; then
+        sudo -E -i
+    else
+        sudo -E -i -- sh -c "${*}"
+    fi
 fi
