@@ -7,7 +7,6 @@ ENV TZ=Australia/Adelaide
 RUN ln -snf /usr/share/zoneinfo/$TZ /etc/localtime && echo $TZ > /etc/timezone
 
 # Ensure UTF-8.
-RUN locale-gen en_AU.UTF-8
 ENV LANG       en_AU.UTF-8
 ENV LC_ALL     en_AU.UTF-8
 
@@ -16,13 +15,17 @@ ENV LC_ALL     en_AU.UTF-8
 
 # Install the universe.
 RUN apt-get update \
-&& apt-get -y install apt-transport-https ca-certificates \
+&& apt-get -y install locales \
+&& locale-gen en_AU.UTF-8 \
+&& apt-get -y install apt-transport-https ca-certificates wget \
 && apt-key adv --keyserver hkp://p80.pool.sks-keyservers.net:80 --recv-keys 58118E89F3A912897C070ADBF76221572C52609D \
 && echo "deb https://apt.dockerproject.org/repo ubuntu-xenial main" > /etc/apt/sources.list.d/docker.list \
+&& echo 'deb https://dl.yarnpkg.com/debian/ stable main' > /etc/apt/sources.list.d/yarn.list \
+&& wget -O - https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
 && apt-get update \
 && apt-get -y dist-upgrade \
 && apt-get -y install docker-engine \
-&& apt-get -y install php7.0 php7.0-cli php7.0-common php7.0-gd php7.0-curl php7.0-opcache php7.0-mysql php7.0-ldap php-xdebug php-memcached php7.0-xml php7.0-mbstring php7.0-bcmath libedit-dev tig vim wget curl ssh git-flow silversearcher-ag mysql-client netcat-openbsd pv ruby-dev rubygems-integration nodejs nodejs-legacy npm build-essential sudo zip ssmtp python \
+&& apt-get -y install php7.0 php7.0-cli php7.0-common php7.0-gd php7.0-curl php7.0-opcache php7.0-mysql php7.0-ldap php-xdebug php-memcached php7.0-xml php7.0-mbstring php7.0-bcmath libedit-dev tig vim curl ssh git-flow silversearcher-ag mysql-client netcat-openbsd pv ruby-dev rubygems-integration nodejs nodejs-legacy npm yarn build-essential sudo zip ssmtp python \
 && apt-get -y autoremove \
 && apt-get autoclean \
 && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
