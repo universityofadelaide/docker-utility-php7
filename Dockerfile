@@ -40,7 +40,7 @@ RUN wget -q --show-progress -O /usr/local/bin/robo https://github.com/consolidat
 RUN wget -q --show-progress -O /usr/local/bin/drush https://s3.amazonaws.com/files.drush.org/drush.phar && chmod +x /usr/local/bin/drush
 
 # Install Drupal console.
-RUN wget -q --show-progress -O /usr/local/bin/drupal https://drupalconsole.com/installer && chmod +x /usr/local/bin/drupal && /usr/local/bin/drupal init
+RUN wget -q --show-progress -O /usr/local/bin/drupal https://drupalconsole.com/installer && chmod +x /usr/local/bin/drupal
 
 # Install Composer.
 RUN wget -q --show-progress -q https://getcomposer.org/installer -O - | php -- --install-dir=/usr/local/bin --filename=composer
