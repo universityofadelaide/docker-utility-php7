@@ -25,7 +25,7 @@ RUN apt-get update \
 && apt-get update \
 && apt-get -y dist-upgrade \
 && apt-get -y install docker-engine \
-&& apt-get -y install php7.0 php7.0-cli php7.0-common php7.0-gd php7.0-curl php7.0-opcache php7.0-mysql php7.0-ldap php-xdebug php-memcached php7.0-xml php7.0-mbstring php7.0-bcmath libedit-dev tig vim curl git-flow silversearcher-ag mysql-client netcat-openbsd pv ruby-dev rubygems-integration nodejs nodejs-legacy npm yarn build-essential sudo zip ssmtp python \
+&& apt-get -y install php7.0 php7.0-cli php7.0-common php7.0-gd php7.0-curl php7.0-opcache php7.0-mysql php7.0-ldap php-xdebug php-memcached php7.0-xml php7.0-mbstring php7.0-bcmath libedit-dev tig vim curl ssh git-flow silversearcher-ag mysql-client netcat-openbsd pv ruby-dev rubygems-integration nodejs nodejs-legacy npm yarn build-essential sudo zip ssmtp python \
 && apt-get -y autoremove \
 && apt-get autoclean \
 && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
@@ -50,6 +50,9 @@ RUN echo "sendmail_path = /usr/sbin/ssmtp -t" > /etc/php/7.0/mods-available/send
 && echo "mailhub=mail:25\nUseTLS=NO\nFromLineOverride=YES" > /etc/ssmtp/ssmtp.conf \
 && phpenmod -v ALL -s ALL sendmail
 
+# Enable sshd.
+RUN mkdir -p /var/run/sshd && chmod -775 /var/run/sshd
+
 COPY ./files/bash_aliases /root/.bash_aliases
 COPY ./files/gitconfig /root/.gitconfig
 COPY ./files/profile /root/.profile
@@ -63,4 +66,9 @@ COPY ./files/bash_aliases /code/.bash_aliases
 COPY ./files/gitconfig /code/.gitconfig
 COPY ./files/profile /code/.profile
 
+# Expose ports.
+EXPOSE 22
+
 WORKDIR /code
+
+CMD ["/usr/sbin/sshd", "-D"]
