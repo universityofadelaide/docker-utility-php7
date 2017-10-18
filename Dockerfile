@@ -22,10 +22,11 @@ RUN apt-get update \
 && echo "deb https://apt.dockerproject.org/repo ubuntu-xenial main" > /etc/apt/sources.list.d/docker.list \
 && echo 'deb https://dl.yarnpkg.com/debian/ stable main' > /etc/apt/sources.list.d/yarn.list \
 && wget -q --show-progress -O - https://dl.yarnpkg.com/debian/pubkey.gpg | apt-key add - \
+&& wget -q --show-progress -O - https://deb.nodesource.com/setup_6.x | bash - \
 && apt-get update \
 && apt-get -y dist-upgrade \
 && apt-get -y install docker-engine \
-&& apt-get -y install php7.0 php7.0-cli php7.0-common php-memcached php-xdebug php7.0-bcmath php7.0-curl php7.0-gd php7.0-ldap php7.0-mbstring php7.0-mysql php7.0-opcache php7.0-xml php7.0-zip libedit-dev tig vim curl ssh git-flow silversearcher-ag mysql-client netcat-openbsd pv ruby-dev rubygems-integration nodejs nodejs-legacy npm yarn build-essential sudo zip ssmtp python \
+&& apt-get -y install php7.0 php7.0-cli php7.0-common php-memcached php-xdebug php7.0-bcmath php7.0-curl php7.0-gd php7.0-ldap php7.0-mbstring php7.0-mysql php7.0-opcache php7.0-xml php7.0-zip libedit-dev tig vim curl ssh git-flow silversearcher-ag mysql-client netcat-openbsd pv ruby-dev rubygems-integration nodejs yarn build-essential sudo zip ssmtp python \
 && apt-get -y autoremove \
 && apt-get autoclean \
 && apt-get clean && rm -rf /var/lib/apt/lists/* /tmp/* /var/tmp/*
