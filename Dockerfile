@@ -35,7 +35,7 @@ RUN apt-get update \
 RUN gem install bundler
 
 # Install Robo.
-RUN wget -q --show-progress -O /usr/local/bin/robo https://github.com/consolidation/Robo/releases/download/1.0.4/robo.phar && chmod +x /usr/local/bin/robo
+RUN wget -q --show-progress -O /usr/local/bin/robo https://github.com/consolidation/Robo/releases/download/1.1.4/robo.phar && chmod +x /usr/local/bin/robo
 
 # Install Drush.
 RUN wget -q --show-progress -O /usr/local/bin/drush https://s3.amazonaws.com/files.drush.org/drush.phar && chmod +x /usr/local/bin/drush
