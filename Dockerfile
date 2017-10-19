@@ -44,7 +44,7 @@ RUN wget -q --show-progress -O /usr/local/bin/drush https://s3.amazonaws.com/fil
 RUN wget -q --show-progress -O /usr/local/bin/drupal https://drupalconsole.com/installer && chmod +x /usr/local/bin/drupal
 
 # Install Composer.
-RUN wget -q --show-progress -q https://getcomposer.org/installer -O - | php -- --install-dir=/usr/local/bin --filename=composer
+RUN wget -q --show-progress https://getcomposer.org/installer -O - | php -- --install-dir=/usr/local/bin --filename=composer
 
 # Add smtp support.
 RUN echo "sendmail_path = /usr/sbin/ssmtp -t" > /etc/php/7.0/mods-available/sendmail.ini \
