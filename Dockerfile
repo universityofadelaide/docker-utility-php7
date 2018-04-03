@@ -35,10 +35,10 @@ RUN apt-get update \
 RUN gem install bundler
 
 # Install Robo.
-RUN wget -q --show-progress -O /usr/local/bin/robo https://github.com/consolidation/Robo/releases/download/1.1.4/robo.phar && chmod +x /usr/local/bin/robo
+RUN wget -q --show-progress -O /usr/local/bin/robo https://github.com/consolidation/Robo/releases/download/1.2.2/robo.phar && chmod +x /usr/local/bin/robo
 
 # Install Drush.
-RUN wget -q --show-progress -O /usr/local/bin/drush https://s3.amazonaws.com/files.drush.org/drush.phar && chmod +x /usr/local/bin/drush
+RUN wget -q --show-progress -O /usr/local/bin/drush https://github.com/drush-ops/drush/releases/download/8.1.16/drush.phar && chmod +x /usr/local/bin/drush
 
 # Install Drupal console.
 RUN wget -q --show-progress -O /usr/local/bin/drupal https://drupalconsole.com/installer && chmod +x /usr/local/bin/drupal
